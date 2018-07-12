@@ -1,18 +1,18 @@
 FROM node:9-alpine
 
-ENV NODE_ENV production
+# set working directory
+RUN mkdir /usr/src/app
+WORKDIR /usr/src/app
 
-#RUN mkdir /opt/app-root
-WORKDIR /opt/app-root
+# add `/usr/src/app/node_modules/.bin` to $PATH
+ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
-COPY package-lock.json /opt/app-root/src
-COPY package.json /opt/app-root/src
+# install and cache app dependencies
+COPY package.json /usr/src/app/package.json
+RUN npm install --silent
+RUN npm install react-scripts@1.1.1 -g --silent
 
-RUN npm install
-
-COPY . /opt/app-root
 RUN npm run build
 
-EXPOSE 4000
-
-CMD["node", "./server"]
+# start app
+CMD ["npm", "start"]
