@@ -1,11 +1,8 @@
 FROM node:9-alpine
 
-
-/opt/app-root/src/package.json
-
 ENV NODE_ENV production
 
-RUN mkdir /opt/app-root
+#RUN mkdir /opt/app-root
 WORKDIR /opt/app-root
 
 COPY package-lock.json /opt/app-root/src/
