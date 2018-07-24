@@ -1,35 +1,36 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Location from './Location';
 import WeatherData from './WeatherData';
 import './styles.css';
 import transformWeather from './../../services/transformWeather';
 
 
-const location = 'Lima';
-const api_key = '6380b390a14962f2ba05dac68754f518';
-const api_weateher = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${api_key}`;
+
+const api_key = "6380b390a14962f2ba05dac68754f518";
+const url = "https://api.openweathermap.org/data/2.5/weather";
+
 
 class WeatherLocation extends Component {
 
-  constructor() {
+  constructor({ city }) {
     super();
     this.state = {
-      city: 'Buenos Aires!',
+      city,
       data: null,
     }
   }
 
-
-
-  handleUpdateClick = () => {    
-    fetch(api_weateher).then(data =>{
-      console.log(data);
+  handleUpdateClick = () => {
+    const { city } = this.state;
+    const api_weateher = `${url}?q=${city}&appid=${api_key}`;
+    fetch(api_weateher).then(data =>{     
       return data.json();
     }).then(weather_data =>{           
       const data = transformWeather(weather_data);
       this.setState({ data });     
     });
-    console.log("actualizado");
+   
   }
 
   componentWillMount = () => {
@@ -45,6 +46,10 @@ class WeatherLocation extends Component {
       </div>
     );
   }
+}
+
+WeatherLocation.propTypes = {
+  city: PropTypes.string,
 }
 
 export default WeatherLocation;
