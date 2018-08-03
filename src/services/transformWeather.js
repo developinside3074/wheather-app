@@ -8,7 +8,6 @@ import {
   DRIZZLE
 } from '../constans/weathers';
 
-
 const getTemp = kelvin => {
   return Number(convert(kelvin).from('K').to('C').toFixed(2));
 }
@@ -34,7 +33,6 @@ const getWeatherState = weather => {
   else {
     return CLOUDY;
   }
-
 }
 
 const transformWeather = weather_data => {
