@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import LocationLocationList from './components/LocationList';
+import LocationList from './components/LocationList';
+//import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import './App.css';
 
 const cities = [
@@ -7,14 +8,20 @@ const cities = [
   'Bogota',
   'Santiago',
   'Caracas',
-  'Madrid'
+  'Madrid',
 ];
 
 class App extends Component {
+  
+  handleSelectedLocation = city =>{
+    console.log(`handleSelectedLocation ${city}`);
+  }
+
   render() {
     return (
       <div className="App">
-        <LocationLocationList cities={cities}></LocationLocationList>
+        <LocationList cities={cities} 
+          onSelectedLocation={this.handleSelectedLocation} ></LocationList>
       </div>
     );
   }
